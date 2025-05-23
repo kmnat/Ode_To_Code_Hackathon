@@ -1,0 +1,37 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (
+      theme-type: dark,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* prevents both scrollbars */
+  font-family: 'Orbitron', sans-serif;
+
+  background: url('D:\\OdeToCode\\src\\assets\\images\\background.jpg') no-repeat center center fixed;
+  background-size: cover; /* makes it stretch and fill the screen */
+}
+
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// body {
+//   background: url('https://picsum.photos/1920/1080') no-repeat center center fixed;
+//   background-size: cover;
+//   margin: 0;
+//   padding: 0;
+//   font-family: 'Orbitron', sans-serif;
+// }

@@ -1,0 +1,33 @@
+.avatar-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #1e1e2f;
+  color: #f0f0f0;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #7c52ff88;
+  max-width: 400px;
+  font-family: 'Courier New', monospace;
+}
+
+.avatar {
+  font-size: 64px;
+  animation: bounce 2s infinite;
+  user-select: none;
+}
+
+.greeting h2 {
+  margin: 0 0 6px 0;
+  font-weight: 700;
+}
+
+.greeting p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}

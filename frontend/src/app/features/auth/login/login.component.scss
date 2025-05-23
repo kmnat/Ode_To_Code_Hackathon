@@ -1,0 +1,108 @@
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #0d0d2b, #1a1a40);
+  min-height: 100vh;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.login-card {
+  width: 420px;
+  background: rgba(20, 20, 50, 0.95);
+  border: 2px solid #00f0ff55;
+  box-shadow: 0 0 25px #00f0ff33;
+  border-radius: 1.5rem;
+  color: #ffffff;
+  transition: all 0.3s ease-in-out;
+
+  mat-card-header.header {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #00f0ff44;
+
+    mat-card-title {
+      font-size: 1.6rem;
+      color: #00f0ff;
+      text-align: center;
+      text-shadow: 0 0 5px #00f0ff, 0 0 15px #00f0ff88;
+    }
+  }
+
+  mat-card-content {
+    padding: 2rem 1.5rem;
+    background: transparent;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    mat-form-field {
+      width: 100%;
+
+      .mat-form-field-flex {
+        background-color: rgba(255, 255, 255, 0.06);
+        border-radius: 8px;
+        transition: background 0.3s;
+      }
+
+      .mat-form-field-label {
+        color: #00f0ff;
+        font-weight: 500;
+      }
+
+      input, textarea, mat-select {
+        color: #fff;
+      }
+
+      .mat-select-arrow {
+        color: #00f0ff;
+      }
+
+      &:hover .mat-form-field-flex {
+        background-color: rgba(0, 240, 255, 0.15);
+      }
+
+      .mat-form-field-underline {
+        background-color: #00f0ff;
+      }
+    }
+  }
+
+  mat-card-actions {
+    padding: 1rem 1.5rem 2rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+
+    button {
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      border-radius: 10px;
+      transition: 0.3s ease;
+
+      &:hover {
+        box-shadow: 0 0 8px #00f0ff88;
+        transform: scale(1.03);
+      }
+
+      &.mat-flat-button {
+        background: linear-gradient(to right, #00f0ff, #00bfff);
+        color: #0d0d2b;
+      }
+
+      &.mat-stroked-button {
+        border-color: #00f0ff;
+        color: #00f0ff;
+
+        &:hover {
+          background-color: rgba(0, 240, 255, 0.1);
+        }
+      }
+    }
+  }
+}

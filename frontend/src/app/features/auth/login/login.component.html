@@ -1,0 +1,56 @@
+<mat-card class="login-card" appearance="outlined">
+  <mat-card-header class="header">
+    <mat-card-title>
+      {{ isSignUp ? '📝 Register' : '🔐 Login / Sign Up' }}
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form *ngIf="!isSignUp" class="login-form">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>🧾 SOEID</mat-label>
+        <input matInput placeholder="Enter your SOEID" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>🔒 Password</mat-label>
+        <input matInput type="password" placeholder="Enter your password" />
+      </mat-form-field>
+    </form>
+
+    <form *ngIf="isSignUp" class="signup-form">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>🧾 SOEID</mat-label>
+        <input matInput placeholder="Enter your SOEID" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>🔒 Password</mat-label>
+        <input matInput type="password" placeholder="Enter your password" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>🔒 Confirm Password</mat-label>
+        <input matInput type="password" placeholder="Re-enter your password" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>🎭 Role</mat-label>
+        <mat-select>
+          <mat-option value="grad">🧑‍🎓 Grad</mat-option>
+          <mat-option value="manager">🧙 Program Manager</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-flat-button color="primary">
+      {{ isSignUp ? '🎉 Register' : '🚀 Login' }}
+    </button>
+
+    <button mat-stroked-button color="accent" (click)="toggleForm()">
+      {{ isSignUp ? '🔙 Back to Login' : '✨ Sign Up' }}
+    </button>
+  </mat-card-actions>
+</mat-card>
