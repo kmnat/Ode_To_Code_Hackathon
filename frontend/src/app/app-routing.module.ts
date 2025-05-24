@@ -8,8 +8,8 @@ import { GameDominoComponent } from './features/games/game-domino/game-domino.co
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'game/decision-tree', component: GameDecisionTreeComponent },
-  { path: 'game/domino', component: GameDominoComponent },
+  { path: 'decision-tree', component: GameDecisionTreeComponent },
+  { path: 'domino', component: GameDominoComponent },
   { path: '', component: HomeComponent }, // Default route
 ];
 

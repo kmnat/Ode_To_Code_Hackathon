@@ -1,0 +1,18 @@
+<h2>Choose Your Avatar</h2>
+<p class="subtitle">Pick your warrior or mage — make it yours!</p>
+
+<div class="avatar-grid">
+  <div 
+    *ngFor="let avatar of avatars; let i = index"
+    class="avatar-card"
+    [class.selected]="selectedIndex === i"
+    (click)="selectAvatar(i)"
+  >
+    <img [src]="avatar.image" [alt]="avatar.name" />
+    <p>{{ avatar.name }}</p>
+  </div>
+</div>
+
+<button mat-raised-button color="primary" [disabled]="selectedIndex === null" (click)="confirmSelection()">
+  Confirm
+</button>

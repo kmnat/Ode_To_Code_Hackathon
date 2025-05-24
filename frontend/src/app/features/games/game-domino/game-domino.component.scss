@@ -1,0 +1,123 @@
+.game-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(0,0,0,0.8);
+  font-family: 'Press Start 2P', cursive;
+}
+
+.domino-chain {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.domino {
+  width: 50px;
+  height: 90px;
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #000;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  transform: rotate(0deg);
+  box-shadow: 3px 3px 6px #000;
+  font-size: 1.2rem;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: #1f1f1f;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 600px;
+  border: 2px solid #00e5ff;
+  box-shadow: 0 0 20px #00e5ff;
+}
+
+.dropzones, .draggables {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.dropzone {
+  width: 100px;
+  height: 50px;
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed #00e5ff;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.draggable {
+  width: 100px;
+  height: 50px;
+  background: #00e5ff;
+  color: #000;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  cursor: grab;
+  box-shadow: 0 4px 12px rgba(0,229,255,0.7);
+  font-size: 0.9rem;
+}
+
+button {
+  padding: 0.7rem 1.5rem;
+  margin-top: 2rem;
+  background-color: #ff4081;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background-color: #f50057;
+  transform: scale(1.05);
+}
+
+.win-message {
+  font-size: 1.6rem;
+  color: #00e676;
+  margin-top: 2rem;
+  text-shadow: 0 0 10px #00e676;
+}

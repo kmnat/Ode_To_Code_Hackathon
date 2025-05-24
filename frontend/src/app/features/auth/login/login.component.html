@@ -45,9 +45,9 @@
   </mat-card-content>
 
   <mat-card-actions align="end">
-    <button mat-flat-button color="primary">
-      {{ isSignUp ? '🎉 Register' : '🚀 Login' }}
-    </button>
+    <button mat-flat-button color="primary" (click)="isSignUp ? onSignupSubmit() : null">
+  {{ isSignUp ? '🎉 Register' : '🚀 Login' }}
+</button>
 
     <button mat-stroked-button color="accent" (click)="toggleForm()">
       {{ isSignUp ? '🔙 Back to Login' : '✨ Sign Up' }}
