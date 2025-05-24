@@ -1,10 +1,76 @@
-<div class="avatar-container">
-  <div class="avatar">
-    <!-- You can replace this emoji with a pixel-art image if you want -->
-    🧙‍♂️
+<div class="home-container">
+  <div class="welcome-section">
+    <div class="avatar-container">
+      <div class="avatar">🧙‍♂️</div>
+      <div class="greeting">
+        <h2>Welcome, Adventurer!</h2>
+        <p>Choose your quest to begin your journey</p>
+      </div>
+    </div>
   </div>
-  <div class="greeting">
-    <h2>Hi there!</h2>
-    <p>Hello, <strong>New Grad</strong>! Welcome to your quest 🎮</p>
+
+  <div class="cards-grid">
+    <!-- Quest Card 1 -->
+    <mat-card class="quest-card">
+      <mat-card-header>
+        <mat-card-title>Decision-Tree Game</mat-card-title>
+        <mat-card-subtitle>Beginner Level</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="treeImagePath" alt="Tree">
+      <mat-card-content>
+        <p>Start your journey with this beginner-friendly quest. Learn the personal trading and compliance policy while exploring all the nodes of our decision tree.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="startCastleQuest()">START QUEST</button>
+        <button mat-button>LEARN MORE</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <!-- Quest Card 2 -->
+    <mat-card class="quest-card">
+      <mat-card-header>
+        <mat-card-title>The Dominos</mat-card-title>
+        <mat-card-subtitle>Intermediate Level</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="dominoImagePath" alt="Domino">
+      <mat-card-content>
+        <p>Match our compliance rules, and get your reward. Also explore our dominos to get a better understanding of the consequences of your actions.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="startForestQuest()">START QUEST</button>
+        <button mat-button>LEARN MORE</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<!-- Chat Bot UI -->
+<div class="chat-bot-container" [class.chat-bot-expanded]="isChatOpen">
+  <!-- Chat Header -->
+  <div class="chat-header" (click)="toggleChat()">
+    <div class="chat-title">
+      <i class="bi bi-robot"></i>
+      AI Assistant
+    </div>
+    <button mat-icon-button>
+      <i class="bi" [class.bi-chevron-down]="isChatOpen" [class.bi-chevron-up]="!isChatOpen"></i>
+    </button>
+  </div>
+
+  <!-- Chat Messages -->
+  <div class="chat-messages" *ngIf="isChatOpen">
+    <div class="message" *ngFor="let message of messages" [class.user-message]="message.sender === 'user'" [class.bot-message]="message.sender === 'bot'">
+      <div class="message-content">{{ message.text }}</div>
+    </div>
+  </div>
+
+  <!-- Chat Input -->
+  <div class="chat-input" *ngIf="isChatOpen">
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Type your message..." [(ngModel)]="newMessage" (keyup.enter)="sendMessage()">
+    </mat-form-field>
+    <button mat-icon-button color="primary" (click)="sendMessage()">
+      <i class="bi bi-send"></i>
+    </button>
   </div>
 </div>

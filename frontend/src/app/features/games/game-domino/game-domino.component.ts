@@ -1,3 +1,4 @@
+
 import { CommonModule } from '@angular/common';
 import { Component, AfterViewInit, QueryList, ViewChildren, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -14,10 +15,12 @@ interface Puzzle {
 @Component({
   selector: 'app-game-domino',
   standalone: true,
+
   imports: [CommonModule, FormsModule],
   templateUrl: './game-domino.component.html',
   styleUrls: ['./game-domino.component.scss']
 })
+
 export class GameDominoComponent implements AfterViewInit {
   @ViewChildren('domino') dominoes!: QueryList<ElementRef>;
   @ViewChildren('draggable') draggableItems!: QueryList<ElementRef>;
