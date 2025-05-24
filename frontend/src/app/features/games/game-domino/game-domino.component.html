@@ -1,1 +1,47 @@
-<p>game-domino works!</p>
+<div class="game-container">
+  <h1>🎲 ZigZag Domino Puzzle Game</h1>
+
+  <div class="domino-chain">
+    <div
+      class="domino"
+      *ngFor="let d of [].constructor(10); let i = index"
+      #domino
+      (click)="openPuzzle(i)"
+    >
+      {{ i + 1 }}
+    </div>
+  </div>
+
+  <div *ngIf="showModal" class="modal-content">
+    <h2>{{ puzzles[current].question }}</h2>
+
+    <div class="dropzones">
+      <div
+        class="dropzone"
+        *ngFor="let pair of puzzles[current].pairs"
+        #dropzone
+        [attr.data-key]="pair.num"
+      >
+        {{ pair.left }}
+        <br />
+        <span class="matched-value">{{ userMatches[pair.num] || '?' }}</span>
+      </div>
+    </div>
+
+    <div class="draggables">
+      <div
+        class="draggable"
+        *ngFor="let pair of puzzles[current].pairs"
+        #draggable
+      >
+        {{ pair.right }}
+      </div>
+    </div>
+
+    <button (click)="submitPuzzle()">Submit</button>
+  </div>
+
+  <div *ngIf="current >= puzzles.length" class="win-message">
+    <h2>🎉 All puzzles solved! You mastered the domino trail!</h2>
+  </div>
+</div>
