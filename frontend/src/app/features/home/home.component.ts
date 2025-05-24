@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 interface ChatMessage {
   text: string;
@@ -23,7 +23,8 @@ interface ChatMessage {
     MatButtonModule,
     MatIconModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    RouterModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -45,11 +46,11 @@ export class HomeComponent {
   constructor(private router: Router) {}
 
   startCastleQuest() {
-    this.router.navigate(['/game/decision-tree']);
+    this.router.navigate(['/decision-tree'], { skipLocationChange: false });
   }
 
   startForestQuest() {
-    this.router.navigate(['/game/domino']);
+    this.router.navigate(['/domino'], { skipLocationChange: false });
   }
 
   // Chat bot methods
