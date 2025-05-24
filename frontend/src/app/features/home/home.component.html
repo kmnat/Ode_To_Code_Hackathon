@@ -1,10 +1,45 @@
-<div class="avatar-container">
-  <div class="avatar">
-    <!-- You can replace this emoji with a pixel-art image if you want -->
-    🧙‍♂️
+<div class="home-container">
+  <div class="welcome-section">
+    <div class="avatar-container">
+      <div class="avatar">🧙‍♂️</div>
+      <div class="greeting">
+        <h2>Welcome, Adventurer!</h2>
+        <p>Choose your quest to begin your journey</p>
+      </div>
+    </div>
   </div>
-  <div class="greeting">
-    <h2>Hi there!</h2>
-    <p>Hello, <strong>New Grad</strong>! Welcome to your quest 🎮</p>
+
+  <div class="cards-grid">
+    <!-- Quest Card 1 -->
+    <mat-card class="quest-card">
+      <mat-card-header>
+        <mat-card-title>Decision-Tree Game</mat-card-title>
+        <mat-card-subtitle>Beginner Level</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="treeImagePath" alt="Tree">
+      <mat-card-content>
+        <p>Start your journey with this beginner-friendly quest. Learn the personal trading and compliance policy while exploring all the nodes of our decision tree.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="startCastleQuest()">START QUEST</button>
+        <button mat-button>LEARN MORE</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <!-- Quest Card 2 -->
+    <mat-card class="quest-card">
+      <mat-card-header>
+        <mat-card-title>The Dominos</mat-card-title>
+        <mat-card-subtitle>Intermediate Level</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="dominoImagePath" alt="Domino">
+      <mat-card-content>
+        <p>Match our compliance rules, and get your reward. Also explore our dominos to get a better understanding of the consequences of your actions.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="startForestQuest()">START QUEST</button>
+        <button mat-button>LEARN MORE</button>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </div>

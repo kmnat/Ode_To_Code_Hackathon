@@ -1,4 +1,3 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
@@ -23,7 +22,7 @@ html, body {
   overflow: hidden; /* prevents both scrollbars */
   font-family: 'Orbitron', sans-serif;
 
-  background: url('D:\\OdeToCode\\src\\assets\\images\\background.jpg') no-repeat center center fixed;
+  background: url('./assets/images/background.jpg') no-repeat center center fixed;
   background-size: cover; /* makes it stretch and fill the screen */
 }
 
