@@ -2,13 +2,20 @@
 <p class="subtitle">Pick your warrior or mage — make it yours!</p>
 
 <div class="avatar-grid">
-  <div 
+  <div
     *ngFor="let avatar of avatars; let i = index"
     class="avatar-card"
     [class.selected]="selectedIndex === i"
     (click)="selectAvatar(i)"
   >
-    <img [src]="avatar.image" [alt]="avatar.name" />
+    <video
+      [src]="avatar.video"
+      autoplay
+      muted
+      loop
+      playsinline
+      class="avatar-video"
+    ></video>
     <p>{{ avatar.name }}</p>
   </div>
 </div>
