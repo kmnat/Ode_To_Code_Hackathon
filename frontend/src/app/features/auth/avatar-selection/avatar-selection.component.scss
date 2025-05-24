@@ -1,0 +1,56 @@
+h2 {
+  font-family: 'Orbitron', sans-serif;
+  color: #00ffea;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: #9ef4f6;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.avatar-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.avatar-card {
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100px;
+  text-align: center;
+  padding: 0.5rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 5px #00ffea);
+    transition: transform 0.3s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.1);
+  }
+
+  &.selected {
+    border-color: #00ffea;
+    box-shadow: 0 0 20px #00ffea;
+    img {
+      filter: drop-shadow(0 0 10px #00fff0);
+    }
+  }
+}
+
+button {
+  display: block;
+  margin: 1.5rem auto 0 auto;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
