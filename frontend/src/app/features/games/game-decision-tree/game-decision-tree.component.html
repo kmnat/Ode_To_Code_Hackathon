@@ -1,1 +1,77 @@
-<p>game-decision-tree works!</p>
+<div class="game-page-container">
+  <!-- Left Panel: Exploration Map -->
+  <div class="exploration-map-panel">
+    <div class="map-header">Exploration Map</div>
+    <div class="map-content">
+      <app-tree-visualizer 
+        [treeData]="decisionTree"
+        [currentNode]="currentNode"
+        [gameHistory]="gameHistory"
+        [visitedChoices]="visitedChoices">
+      </app-tree-visualizer>
+    </div>
+  </div>
+
+  <!-- Right Panel: Game Content -->
+  <div class="game-content-panel">
+    <div class="game-container">
+      <mat-card class="game-card">
+        <mat-card-header>
+          <mat-card-title>Adventure Tree Challenge</mat-card-title>
+          <mat-card-subtitle>Explore the branches of decision!</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <!-- Tree visualization -->
+          <div class="tree-visualization">
+            <div class="tree-path">
+              <span *ngFor="let node of gameHistory; let i = index"
+                    class="path-node"
+                    [class.current-path-node]="i === gameHistory.length - 1">
+                {{ i > 0 ? (wasPreviousChoiceYes(i) ? '➔ Yes' : '➔ No') : '' }} {{ node.question.substring(0, 20) }}{{ node.question.length > 20 ? '...' : ''}}
+              </span>
+            </div>
+
+            <div class="current-node-display" [@fadeInOut]>
+              <div class="node-icon">🌳</div>
+              <p [class.action-text]="currentNode.type === 'action'" class="question-text">
+                {{ currentNode.question }}
+              </p>
+            </div>
+          </div>
+
+          <div class="choices-container" *ngIf="!isGameComplete" [@fadeInOut]>
+            <button mat-fab extended color="primary" 
+                    (click)="makeChoice('yes')" 
+                    class="choice-button yes-button"
+                    [class.traversed-choice]="hasChoiceBeenTraversed('yes')">
+              <span class="button-icon">👍</span> YES
+            </button>
+            <button mat-fab extended color="warn" 
+                    (click)="makeChoice('no')" 
+                    class="choice-button no-button"
+                    [class.traversed-choice]="hasChoiceBeenTraversed('no')">
+              <span class="button-icon">👎</span> NO
+            </button>
+          </div>
+
+          <div class="game-complete" *ngIf="isGameComplete" [@fadeInOut]>
+            <p class="complete-text">✨ You've reached the end of this branch! ✨</p>
+            <button mat-raised-button color="primary" (click)="restartGame()" class="restart-button">
+              <span class="button-icon">🔄</span> Play Again
+            </button>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-stroked-button color="accent" (click)="goBack()" [disabled]="gameHistory.length <= 1" class="action-button back-button">
+            <span class="button-icon">⏪</span> Go Back
+          </button>
+          <button mat-stroked-button color="warn" (click)="restartGame()" class="action-button restart-main-button">
+            <span class="button-icon">🔄</span> Restart Game
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

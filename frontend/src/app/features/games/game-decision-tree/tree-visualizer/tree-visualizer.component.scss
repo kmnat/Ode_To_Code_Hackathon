@@ -1,0 +1,140 @@
+.tree-visualizer-container {
+  padding: 15px;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #f8f9fa; // Light background for the map area
+  border-radius: 8px;
+}
+
+.node-wrapper {
+  position: relative;
+  margin-bottom: 5px; 
+}
+
+.node-content {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  margin-bottom: 5px; // Space before children start
+  transition: all 0.3s ease;
+  cursor: default;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+  .node-icon-map {
+    margin-right: 8px;
+    font-size: 1.1em;
+  }
+
+  .node-text {
+    font-size: 0.9em;
+    color: #495057;
+    white-space: nowrap;
+  }
+
+  &.is-on-path {
+    background-color: #e9f5ff; // Light blue for nodes on the current path
+    border-color: #aed6f1;
+  }
+
+  &.is-current {
+    background-color: #3498db; // Theme blue for current node
+    border-color: #217dbb;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: scale(1.02);
+
+    .node-text, .node-icon-map {
+      color: white;
+      font-weight: 600;
+    }
+  }
+
+  &.action-node {
+    background-color: #fdebd0; // Soft orange for action nodes
+    border-color: #f5cba7;
+    &.is-current {
+      background-color: #e67e22; // Darker orange if current
+      border-color: #d35400;
+    }
+  }
+}
+
+.node-children {
+  position: relative;
+  padding-left: 25px; // Indent children
+}
+
+.child-branch {
+  position: relative;
+  padding-top: 5px;
+  margin-bottom: 5px;
+
+  // Basic line connector (vertical part)
+  &::before {
+    content: '';
+    position: absolute;
+    left: -12px; // Aligns with the intended parent connection point
+    top: -5px; // Start from above the branch-info
+    bottom: 0;
+    width: 1.5px;
+    background-color: #ced4da;
+  }
+  
+  // Horizontal part of the connector for each child
+  .branch-info::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px; // Length of horizontal line
+    height: 1.5px;
+    background-color: #ced4da;
+  }
+}
+
+.branch-info {
+  position: relative; // For the ::before pseudo-element
+  font-size: 0.75em;
+  padding: 2px 6px;
+  margin-bottom: 3px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 500;
+  display: inline-block;
+  opacity: 0.8;
+
+  &.yes-branch {
+    background-color: #28a745; // Green for YES
+  }
+  &.no-branch {
+    background-color: #dc3545; // Red for NO
+  }
+
+  &.yes-traversed,
+  &.no-traversed {
+    opacity: 1;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  }
+  
+  &.yes-branch.is-on-path ~ .node-wrapper > .node-content.is-on-path,
+  &.no-branch.is-on-path ~ .node-wrapper > .node-content.is-on-path {
+     // This is a bit tricky, might need JS to add class to connector if child is on path
+  }
+
+  // Style connector line if it leads to a node on the path
+  // This requires more complex logic, possibly JS, to apply to pseudo-elements.
+  // For now, the node itself will be highlighted.
+}
+
+// Ensure the last child doesn't have a line extending below it
+.child-branch:last-child::before {
+  bottom: calc(50% - 0px); // Adjust to stop line at middle of last child's branch-info
+}
+
+// Specific styling if the direct child is on the path
+// This is difficult with pure CSS for pseudo-elements based on children's state.
+// Highlighting the .branch-info and node-content provides good feedback. 
