@@ -19,10 +19,12 @@ mongoose.connect(mongoURI, {
 const gradRoutes = require('./routes/gradRoutes');
 const scoreRoutes = require('./routes/scoreRoutes');
 const generalRoutes = require('./routes/generalRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 app.use('/api/grads', gradRoutes);
 app.use('/api/scores', scoreRoutes);
 app.use('/api', generalRoutes);
+app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.send('Backend is working!');
