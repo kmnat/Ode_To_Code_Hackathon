@@ -13,7 +13,8 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { GameDominoComponent } from './features/games/game-domino/game-domino.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { } 

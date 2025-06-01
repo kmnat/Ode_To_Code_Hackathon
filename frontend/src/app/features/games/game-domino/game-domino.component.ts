@@ -157,17 +157,50 @@ export class GameDominoComponent implements AfterViewInit {
   }
 
   submitPuzzle() {
+    // const correct = this.puzzles[this.current].correct;
+    // const isCorrect = Object.keys(correct).every(key => correct[+key] === this.userMatches[+key]);
+    
     const correct = this.puzzles[this.current].correct;
-    const isCorrect = Object.keys(correct).every(key => correct[+key] === this.userMatches[+key]);
+    const isCorrect = Object.keys(correct).every(
+      key => correct[+key] === this.userMatches[+key]
+    );
+
 
     if (isCorrect) {
       this.fallNextFiveDominoes();
       this.current++;
       this.showModal = false;
+
+       const score1 = this.current * 10; // 10 points per puzzle
+
+    // Send score to backend
+    this.sendScoreToBackend(score1);
     } else {
       alert('Some matches are incorrect. Try again!');
     }
   }
+
+  sendScoreToBackend(score: number) {
+  const token = localStorage.getItem('jwtToken'); // or sessionStorage
+
+  fetch('http://localhost:5000/api/grads/update-score', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({ score1: score })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log('Score updated:', data);
+  })
+  .catch(err => {
+    console.error('Failed to update score:', err);
+  });
+}
+
+
 
   fallNextFiveDominoes() {
     const allDominoes = this.dominoes.toArray();
