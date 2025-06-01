@@ -6,34 +6,7 @@
   width: 100vw; // Full viewport width
   overflow: hidden; // Prevent scrollbars on the page itself
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
-}
-
-.exploration-map-panel {
-  width: 350px; // Fixed width for the map panel
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.85); // Slightly transparent
-  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto; // This will provide scroll for the panel if its content is too tall
-  height: 100%; // Explicitly use the full height of its parent (.game-page-container)
-
-  .map-header {
-    font-size: 1.5em;
-    font-weight: 600;
-    color: #2c3e50;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #3498db;
-    text-align: center;
-  }
-
-  .map-content {
-    flex-grow: 1;
-    overflow-y: auto; // For the tree visualizer itself to scroll if needed
-    min-height: 0; // Important for flex children that need to scroll their own content
-  }
+  /* background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%); Removed green gradient */
 }
 
 .game-content-panel {
@@ -281,4 +254,35 @@ mat-card-actions {
      // color: #c0392b !important;
      // border-color: #c0392b !important;
   }
+}
+
+.traversed-choice {
+  background-color: #d2b4de !important; // A distinct lavender color
+  color: #ffffff !important;
+  opacity: 0.7;
+  border: 2px solid #8e44ad !important;
+}
+
+// You can also add specific styles for yes/no if needed
+.yes-button.traversed-choice {
+  // background-color: #a9dfbf !important; // Light green example
+  // border-color: #229954 !important;
+}
+
+.no-button.traversed-choice {
+  // background-color: #f5b7b1 !important; // Light red example
+  // border-color: #c0392b !important;
+}
+
+.timer-display {
+  position: absolute;
+  top: 20px; /* Adjust as needed */
+  right: 20px; /* Adjust as needed */
+  font-size: 1.5em; /* Larger font size */
+  font-weight: bold;
+  color: #2c3e50; /* Dark blue-grey color */
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }

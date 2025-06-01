@@ -21,9 +21,20 @@ html, body {
   width: 100%;
   overflow: hidden; /* prevents both scrollbars */
   font-family: 'Orbitron', sans-serif;
+  position: relative; /* Added for pseudo-element positioning */
+}
 
-  background: url('./assets/images/background.jpg') no-repeat center center fixed;
-  background-size: cover; /* makes it stretch and fill the screen */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('./assets/images/backg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  filter: brightness(0.6) saturate(0.7); /* Adjust brightness and saturation */
+  z-index: -1; /* Place it behind the content */
 }
 
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

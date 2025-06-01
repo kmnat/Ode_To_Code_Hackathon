@@ -1,5 +1,6 @@
 <div class="game-page-container">
-  <!-- Left Panel: Exploration Map -->
+  <!-- Left Panel: Exploration Map - REMOVED -->
+  <!-- 
   <div class="exploration-map-panel">
     <div class="map-header">Exploration Map</div>
     <div class="map-content">
@@ -11,14 +12,16 @@
       </app-tree-visualizer>
     </div>
   </div>
+  -->
 
   <!-- Right Panel: Game Content -->
-  <div class="game-content-panel">
+  <div class="game-content-panel" style="width: 100%;"> <!-- Ensure it takes full width -->
     <div class="game-container">
       <mat-card class="game-card">
         <mat-card-header>
-          <mat-card-title>Adventure Tree Challenge</mat-card-title>
+          <mat-card-title>Personal Trading And Investment Policy</mat-card-title>
           <mat-card-subtitle>Explore the branches of decision!</mat-card-subtitle>
+          <div class="timer-display">{{ timerDisplay }}</div>
         </mat-card-header>
 
         <mat-card-content>
@@ -33,7 +36,7 @@
             </div>
 
             <div class="current-node-display" [@fadeInOut]>
-              <div class="node-icon">🌳</div>
+              <div class="node-icon">📈</div>
               <p [class.action-text]="currentNode.type === 'action'" class="question-text">
                 {{ currentNode.question }}
               </p>
@@ -41,29 +44,54 @@
           </div>
 
           <div class="choices-container" *ngIf="!isGameComplete" [@fadeInOut]>
-            <button mat-fab extended color="primary" 
-                    (click)="makeChoice('yes')" 
+            <button mat-fab extended color="primary"
+                    (click)="makeChoice('yes')"
                     class="choice-button yes-button"
-                    [class.traversed-choice]="hasChoiceBeenTraversed('yes')">
+                    [class.traversed-choice]="hasChoiceBeenTraversed('yes')"
+                    [disabled]="currentNode.yesChoiceCompleted">
               <span class="button-icon">👍</span> YES
             </button>
             <button mat-fab extended color="warn" 
                     (click)="makeChoice('no')" 
                     class="choice-button no-button"
-                    [class.traversed-choice]="hasChoiceBeenTraversed('no')">
+                    [class.traversed-choice]="hasChoiceBeenTraversed('no')"
+                    [disabled]="currentNode.noChoiceCompleted">
               <span class="button-icon">👎</span> NO
             </button>
           </div>
 
-          <div class="game-complete" *ngIf="isGameComplete" [@fadeInOut]>
+          <div class="game-complete" *ngIf="isGameComplete && !allPathsTraversed" [@fadeInOut]>
             <p class="complete-text">✨ You've reached the end of this branch! ✨</p>
             <button mat-raised-button color="primary" (click)="restartGame()" class="restart-button">
-              <span class="button-icon">🔄</span> Play Again
+              <span class="button-icon">🔄</span> Play Again to explore other paths!
+            </button>
+            <button mat-stroked-button color="accent" (click)="goBack()" [disabled]="gameHistory.length <= 1" class="action-button back-button" style="margin-left: 10px;">
+              <span class="button-icon">⏪</span> Go Back
+            </button>
+          </div>
+
+          <div class="all-paths-complete" *ngIf="allPathsTraversed" [@fadeInOut]>
+            <p class="complete-text" style="font-size: 1.5em; color: green;">🎉 Congratulations! 🎉</p>
+            <p class="complete-text">You are done, you traversed all nodes and discovered all outcomes!</p>
+            
+            <div class="full-tree-display" style="margin-top: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 8px; text-align: left; max-height: 300px; overflow-y: auto;">
+              <h4 style="margin-bottom: 10px; color: #34495e;">Full Decision Tree:</h4>
+              <div *ngFor="let line of fullTreeTextLines"
+                   [style.padding-left.px]="line.level * 15"
+                   [style.color]="line.type === 'action' ? '#c0392b' : '#2c3e50'"
+                   [style.font-weight]="line.type === 'action' ? 'bold' : 'normal'"
+                   style="margin-bottom: 4px; font-size: 0.9em;">
+                {{ line.text }}
+              </div>
+            </div>
+
+            <button mat-raised-button color="warn" (click)="restartGame()" class="restart-button" style="margin-top: 20px;">
+              <span class="button-icon">🔄</span> Restart Game
             </button>
           </div>
         </mat-card-content>
 
-        <mat-card-actions>
+        <mat-card-actions *ngIf="!allPathsTraversed">
           <button mat-stroked-button color="accent" (click)="goBack()" [disabled]="gameHistory.length <= 1" class="action-button back-button">
             <span class="button-icon">⏪</span> Go Back
           </button>
