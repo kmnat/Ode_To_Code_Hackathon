@@ -6,11 +6,13 @@ import { GameDecisionTreeComponent } from './features/games/game-decision-tree/g
 import { GameDominoComponent } from './features/games/game-domino/game-domino.component';
 
 export const routes: Routes = [
+  
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'decision-tree', component: GameDecisionTreeComponent },
   { path: 'domino', component: GameDominoComponent },
   { path: '', component: HomeComponent }, // Default route
+   { path: 'dashboard', component: HomeComponent },
 ];
 
 @NgModule({

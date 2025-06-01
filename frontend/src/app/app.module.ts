@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { GameDominoComponent } from './features/games/game-domino/game-domino.component';
-
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +30,8 @@ import { GameDominoComponent } from './features/games/game-domino/game-domino.co
     MatButtonModule,
     MatIconModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
