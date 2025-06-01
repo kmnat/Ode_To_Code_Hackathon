@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 // Build Mongo URI securely
-const mongoURI = `mongodb+srv://ktanvarada:Do5N8vpxn19vBdv2@cluster-hackathonciti.uxg1oef.mongodb.net/rpg-game?retryWrites=true&w=majority&appName=Cluster-hackathonCiti`;
+const mongoURI = ``;
 
 // MongoDB connection
 mongoose.connect(mongoURI, {
