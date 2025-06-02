@@ -31,8 +31,7 @@
 .greeting h2 {
   margin: 0 0 6px 0;
   font-weight: 700;
-  color: #00f0ff;
-  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  color: #f0f0f0;
 }
 
 .greeting p {
@@ -68,10 +67,9 @@
   }
 
   mat-card-title {
-    color: #00f0ff;
+    color: #f0f0f0;
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
   }
 
   mat-card-subtitle {
@@ -156,7 +154,7 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 350px;
+  width: 300px;
   background: rgba(30, 30, 47, 0.95);
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(124, 82, 255, 0.3);
@@ -184,7 +182,7 @@
   border-bottom: 1px solid rgba(124, 82, 255, 0.2);
 
   .chat-title {
-    color: #00f0ff;
+    color: #f0f0f0;
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -196,7 +194,7 @@
   }
 
   button {
-    color: #ffffff;
+    color: #f0f0f0;
   }
 }
 
@@ -213,6 +211,7 @@
     padding: 10px 15px;
     border-radius: 12px;
     margin: 5px 0;
+    position: relative;
 
     &.user-message {
       background: rgba(124, 82, 255, 0.2);
@@ -228,6 +227,27 @@
 
     .message-content {
       line-height: 1.4;
+    }
+
+    .feedback-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      justify-content: flex-start;
+    }
+
+    .feedback-button {
+      mat-icon {
+        font-size: 20px;
+      }
+    }
+
+    .feedback-tick mat-icon {
+      color: #4CAF50;
+    }
+
+    .feedback-cross mat-icon {
+      color: #F44336;
     }
   }
 }
@@ -271,5 +291,10 @@
     &:hover {
       color: #ffffff;
     }
+  }
+
+  mat-form-field.disabled {
+    background-color: #f0f0f0;
+    opacity: 0.7;
   }
 }

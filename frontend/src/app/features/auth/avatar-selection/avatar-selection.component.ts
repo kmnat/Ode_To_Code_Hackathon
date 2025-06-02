@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 
 interface Avatar {
   name: string;
-  video: string; // URL or local asset path
+  video?: string; // URL or local asset path - now optional
+  image?: string; // URL or local asset path - new optional property
 }
 
 @Component({
@@ -16,6 +17,7 @@ interface Avatar {
 export class AvatarSelectionComponent {
   avatars: Avatar[] = [
     { name: 'The Samurai', video: 'assets/anime/samurai.webm' },
+    { name: 'Scarlet Witch', image: 'assets/anime/Scarlet_Witch.webp' },
     // { name: 'The Mage', image: 'assets/avatars/mage.png' },
     // { name: 'The Rogue', image: 'assets/avatars/rogue.png' },
     // { name: 'The Archer', image: 'assets/avatars/archer.png' },

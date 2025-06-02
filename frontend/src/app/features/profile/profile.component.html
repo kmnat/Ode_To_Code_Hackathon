@@ -1,1 +1,27 @@
-<p>profile works!</p>
+<div class="profile-container">
+  <div class="profile-header">
+    <div class="avatar-container">
+      <video [src]="user.avatarUrl" autoplay loop muted playsinline class="profile-avatar"></video>
+    </div>
+    <h1 class="username">{{ user.username }}</h1>
+  </div>
+
+  <mat-card class="profile-details-card">
+    <mat-card-content>
+      <div class="detail-item">
+        <mat-icon>games</mat-icon>
+        <span>Games Played: {{ user.gamesPlayed }}</span>
+      </div>
+      <div class="detail-item">
+        <mat-icon>leaderboard</mat-icon>
+        <span>Score: {{ user.score }}</span>
+      </div>
+      <div class="detail-item">
+        <mat-icon>military_tech</mat-icon>
+        <span>Rank: {{ calculateRank(user.score) }}</span> 
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Add more sections as needed, e.g., achievements, settings -->
+</div>

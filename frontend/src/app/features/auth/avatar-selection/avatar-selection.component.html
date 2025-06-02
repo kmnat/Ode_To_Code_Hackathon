@@ -9,6 +9,7 @@
     (click)="selectAvatar(i)"
   >
     <video
+      *ngIf="avatar.video"
       [src]="avatar.video"
       autoplay
       muted
@@ -16,6 +17,12 @@
       playsinline
       class="avatar-video"
     ></video>
+    <img
+      *ngIf="avatar.image"
+      [src]="avatar.image"
+      [alt]="avatar.name"
+      class="avatar-image" 
+    />
     <p>{{ avatar.name }}</p>
   </div>
 </div>

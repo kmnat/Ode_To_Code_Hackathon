@@ -27,22 +27,29 @@ h2 {
   padding: 0.5rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
-  img {
-    width: 80px;
-    height: 80px;
+  .avatar-video,
+  .avatar-image {
+    width: 100%;
+    height: auto;
+    max-height: 160px;
     object-fit: contain;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     filter: drop-shadow(0 0 5px #00ffea);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, filter 0.3s ease;
   }
 
-  &:hover img {
+  &:hover .avatar-video,
+  &:hover .avatar-image {
     transform: scale(1.1);
   }
 
   &.selected {
     border-color: #00ffea;
     box-shadow: 0 0 20px #00ffea;
-    img {
+    .avatar-video,
+    .avatar-image {
       filter: drop-shadow(0 0 10px #00fff0);
     }
   }

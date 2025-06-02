@@ -4,6 +4,8 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { HomeComponent } from './features/home/home.component';
 import { GameDecisionTreeComponent } from './features/games/game-decision-tree/game-decision-tree.component';
 import { GameDominoComponent } from './features/games/game-domino/game-domino.component';
+import { ProfileComponent } from './features/profile/profile.component';
+import { BoardComponent } from './features/board/board.component';
 import { ResourcesComponent } from './features/resources/resources.component';
 import { authGuard } from './auth.guard';
 

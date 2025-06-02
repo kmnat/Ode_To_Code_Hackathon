@@ -9,8 +9,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router, RouterModule } from '@angular/router';
 
 interface ChatMessage {
+  id?: string; // Optional ID for messages
   text: string;
   sender: 'user' | 'bot';
+  requiresFeedback?: boolean; // For bot messages needing feedback
+  feedback?: 'satisfied' | 'not_satisfied'; // To store user feedback
 }
 
 @Component({
@@ -38,10 +41,13 @@ export class HomeComponent {
   newMessage = '';
   messages: ChatMessage[] = [
     {
+      id: 'initial-bot-message',
       text: 'Hello! I\'m your AI assistant. How can I help you today?',
-      sender: 'bot'
+      sender: 'bot',
+      requiresFeedback: false // Initial greeting doesn't require feedback
     }
   ];
+  feedbackPending = false; // Flag to track if feedback is awaited
 
   constructor(private router: Router) {}
 
@@ -59,22 +65,48 @@ export class HomeComponent {
   }
 
   sendMessage() {
-    if (!this.newMessage.trim()) return;
+    if (!this.newMessage.trim() || this.feedbackPending) return; // Don't send if feedback is pending
 
-    // Add user message
     this.messages.push({
+      id: `user-${Date.now()}`,
       text: this.newMessage,
       sender: 'user'
     });
-
-    // Simulate bot response
-    setTimeout(() => {
-      this.messages.push({
-        text: 'I\'m here to help! However, I\'m currently in development. Please check back later for full functionality.',
-        sender: 'bot'
-      });
-    }, 1000);
-
     this.newMessage = '';
+
+    // Simulate bot response after a short delay
+    setTimeout(() => {
+      const botMessageId = `bot-${Date.now()}`;
+      this.messages.push({
+        id: botMessageId,
+        text: 'This is a sample bot response. Are you satisfied?',
+        sender: 'bot',
+        requiresFeedback: true
+      });
+      this.feedbackPending = true; // Set feedback as pending
+    }, 1000);
+  }
+
+  handleFeedback(messageId: string, satisfaction: 'satisfied' | 'not_satisfied') {
+    const messageIndex = this.messages.findIndex(m => m.id === messageId);
+    if (messageIndex > -1) {
+      this.messages[messageIndex].feedback = satisfaction;
+      this.messages[messageIndex].requiresFeedback = false;
+      this.feedbackPending = false;
+
+      // Optional: Add a follow-up message from the bot based on feedback
+      let followUpText = '';
+      if (satisfaction === 'satisfied') {
+        followUpText = 'Great! Happy to help.';
+      } else {
+        followUpText = 'I understand. I will try to improve.';
+      }
+      this.messages.push({
+        id: `bot-followup-${Date.now()}`,
+        text: followUpText,
+        sender: 'bot',
+        requiresFeedback: false
+      });
+    }
   }
 }
