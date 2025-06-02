@@ -4,6 +4,7 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { HomeComponent } from './features/home/home.component';
 import { GameDecisionTreeComponent } from './features/games/game-decision-tree/game-decision-tree.component';
 import { GameDominoComponent } from './features/games/game-domino/game-domino.component';
+import { ResourcesComponent } from './features/resources/resources.component';
 import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'board', component: HomeComponent, canActivate: [authGuard] },
   { path: 'profile', component: HomeComponent, canActivate: [authGuard] },
   { path: 'settings', component: HomeComponent, canActivate: [authGuard] },
+  { path: 'resources', component: ResourcesComponent, canActivate: [authGuard] },
   { path: '**', redirectTo: 'login' }
 ];
 

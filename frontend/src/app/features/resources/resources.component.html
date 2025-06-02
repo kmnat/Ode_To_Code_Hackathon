@@ -1,0 +1,45 @@
+<div class="resources-container">
+  <h1 class="title">📚 Magical Library of Knowledge</h1>
+  <p class="subtitle">Unlock ancient scrolls and mystical tomes as you progress in your journey!</p>
+
+  <div class="categories">
+    <button mat-button 
+      *ngFor="let cat of categories"
+      (click)="filterCategory(cat)"
+      [class.active]="selectedCategory === cat">
+      {{ cat | titlecase }} Scrolls
+    </button>
+  </div>
+
+  <div class="resources-grid">
+    <mat-card *ngFor="let resource of filteredResources" 
+      [class.locked]="!resource.unlocked"
+      [matTooltip]="!resource.unlocked ? 'Requires ' + resource.requiredPoints + ' points to unlock' : ''">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>{{ resource.icon }}</mat-icon>
+          {{ resource.title }}
+        </mat-card-title>
+        <mat-card-subtitle>{{ resource.type.toUpperCase() }}</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <p>{{ resource.description }}</p>
+        <mat-progress-bar 
+          *ngIf="!resource.unlocked"
+          mode="determinate"
+          [value]="(currentPoints / resource.requiredPoints) * 100">
+        </mat-progress-bar>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button color="primary" 
+          [disabled]="!resource.unlocked"
+          (click)="downloadResource(resource)">
+          <mat-icon>{{ resource.unlocked ? 'download' : 'lock' }}</mat-icon>
+          {{ resource.unlocked ? 'Download' : 'Locked' }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div> 
