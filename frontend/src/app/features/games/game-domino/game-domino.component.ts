@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, AfterViewInit, QueryList, ViewChildren, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
-=======
-import { CommonModule } from '@angular/common';
-import { Component, AfterViewInit, QueryList, ViewChildren, ElementRef } from '@angular/core';
->>>>>>> e45c89e5b249478d2b123b33a0cdaadf0faf1d01
 import { FormsModule } from '@angular/forms';
 import { gsap } from 'gsap';
 import { Draggable } from 'gsap/Draggable';
@@ -243,20 +238,17 @@ export class GameDominoComponent implements AfterViewInit {
       this.fallNextFiveDominoes();
       this.current++;
       this.showModal = false;
-<<<<<<< HEAD
       if (this.current >= this.puzzles.length) {
         this.showWinPopup = true;
         setTimeout(() => {
           this.animatePopupDominoes();
         }, 100);
       }
-=======
 
        const score1 = this.current * 10; // 10 points per puzzle
 
     // Send score to backend
     this.sendScoreToBackend(score1);
->>>>>>> e45c89e5b249478d2b123b33a0cdaadf0faf1d01
     } else {
       this.submittedIncorrectlyThisPuzzle = true;
       console.log('Puzzle incorrect. Flagging for reduced points on eventual success.');
@@ -274,10 +266,10 @@ export class GameDominoComponent implements AfterViewInit {
     }
   }
 
-<<<<<<< HEAD
   closeWinPopup() {
     this.showWinPopup = false;
-=======
+  }
+
   sendScoreToBackend(score: number) {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -308,7 +300,6 @@ export class GameDominoComponent implements AfterViewInit {
       console.error('Failed to update score:', err.message);
       // You could show an error message to the user here
     });
->>>>>>> e45c89e5b249478d2b123b33a0cdaadf0faf1d01
   }
 
   fallNextFiveDominoes() {
