@@ -3,10 +3,13 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
+const cors = require('cors');
+
 app.use(express.json());
+app.use(cors());
 
 // Build Mongo URI securely
-const mongoURI = `mongodb+srv://${process.env.MONGODB_USER}:${encodeURIComponent(process.env.MONGODB_PASS)}@${process.env.MONGODB_CLUSTER}.mongodb.net/${process.env.MONGODB_DB}?retryWrites=true&w=majority&appName=Cluster-hackathonCiti`;
+const mongoURI = ``;
 
 // MongoDB connection
 mongoose.connect(mongoURI, {
@@ -19,10 +22,12 @@ mongoose.connect(mongoURI, {
 const gradRoutes = require('./routes/gradRoutes');
 const scoreRoutes = require('./routes/scoreRoutes');
 const generalRoutes = require('./routes/generalRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 app.use('/api/grads', gradRoutes);
 app.use('/api/scores', scoreRoutes);
 app.use('/api', generalRoutes);
+app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.send('Backend is working!');

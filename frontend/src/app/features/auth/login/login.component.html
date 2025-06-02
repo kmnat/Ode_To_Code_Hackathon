@@ -1,56 +1,72 @@
-<mat-card class="login-card" appearance="outlined">
-  <mat-card-header class="header">
-    <mat-card-title>
-      {{ isSignUp ? '📝 Register' : '🔐 Login / Sign Up' }}
-    </mat-card-title>
-  </mat-card-header>
+<div class="card-container">
+  <mat-card class="login-card" appearance="outlined">
+    <mat-card-header class="header">
+      <mat-card-title>
+        {{ isSignUp ? '📝 Register' : '🔐 Login / Sign Up' }}
+      </mat-card-title>
+    </mat-card-header>
 
-  <mat-card-content>
-    <form *ngIf="!isSignUp" class="login-form">
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>🧾 SOEID</mat-label>
-        <input matInput placeholder="Enter your SOEID" />
-      </mat-form-field>
+    <mat-card-content>
+      <!-- LOGIN FORM -->
+      <form *ngIf="!isSignUp" (ngSubmit)="handleSubmit()" class="login-form" id="loginForm">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>🧾 SOEID</mat-label>
+          <input matInput placeholder="Enter your SOEID" [(ngModel)]="loginData.soeid" name="loginSoeid" required />
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>🔒 Password</mat-label>
-        <input matInput type="password" placeholder="Enter your password" />
-      </mat-form-field>
-    </form>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>🔒 Password</mat-label>
+          <input matInput type="password" placeholder="Enter your password"
+                 [(ngModel)]="loginData.password" name="loginPassword" required />
+        </mat-form-field>
 
-    <form *ngIf="isSignUp" class="signup-form">
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>🧾 SOEID</mat-label>
-        <input matInput placeholder="Enter your SOEID" />
-      </mat-form-field>
+        <button mat-flat-button color="primary" type="submit">
+          🚀 Login
+        </button>
+      </form>
 
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>🔒 Password</mat-label>
-        <input matInput type="password" placeholder="Enter your password" />
-      </mat-form-field>
+      <!-- SIGN UP FORM -->
+      <form *ngIf="isSignUp" (ngSubmit)="handleSubmit()" class="signup-form" id="signupForm">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>🙋 Full Name</mat-label>
+          <input matInput placeholder="Enter your full name" [(ngModel)]="signupData.name" name="signupName" required />
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>🔒 Confirm Password</mat-label>
-        <input matInput type="password" placeholder="Re-enter your password" />
-      </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>🧾 SOEID</mat-label>
+          <input matInput placeholder="Enter your SOEID" [(ngModel)]="signupData.soeid" name="signupSoeid" required />
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>🎭 Role</mat-label>
-        <mat-select>
-          <mat-option value="grad">🧑‍🎓 Grad</mat-option>
-          <mat-option value="manager">🧙 Program Manager</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </form>
-  </mat-card-content>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>🔒 Password</mat-label>
+          <input matInput type="password" placeholder="Enter your password"
+                 [(ngModel)]="signupData.password" name="signupPassword" required />
+        </mat-form-field>
 
-  <mat-card-actions align="end">
-    <button mat-flat-button color="primary" (click)="isSignUp ? onSignupSubmit() : null">
-  {{ isSignUp ? '🎉 Register' : '🚀 Login' }}
-</button>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>🔒 Confirm Password</mat-label>
+          <input matInput type="password" placeholder="Re-enter your password"
+                 [(ngModel)]="signupData.confirmPassword" name="signupConfirmPassword" required />
+        </mat-form-field>
 
-    <button mat-stroked-button color="accent" (click)="toggleForm()">
-      {{ isSignUp ? '🔙 Back to Login' : '✨ Sign Up' }}
-    </button>
-  </mat-card-actions>
-</mat-card>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>🎭 Role</mat-label>
+          <mat-select [(ngModel)]="signupData.role" name="signupRole" required>
+            <mat-option value="grad">🧑‍🎓 Grad</mat-option>
+            <mat-option value="pm">🧙 Program Manager</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" type="submit">
+          🎉 Register
+        </button>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-stroked-button color="accent" (click)="toggleForm()">
+        {{ isSignUp ? '🔙 Back to Login' : '✨ Sign Up' }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
