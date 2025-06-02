@@ -1,4 +1,3 @@
-
 import { CommonModule } from '@angular/common';
 import { Component, AfterViewInit, QueryList, ViewChildren, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -181,26 +180,36 @@ export class GameDominoComponent implements AfterViewInit {
   }
 
   sendScoreToBackend(score: number) {
-  const token = localStorage.getItem('jwtToken'); // or sessionStorage
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
 
-  fetch('http://localhost:5000/api/grads/update-score', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({ score1: score })
-  })
-  .then(res => res.json())
-  .then(data => {
-    console.log('Score updated:', data);
-  })
-  .catch(err => {
-    console.error('Failed to update score:', err);
-  });
-}
-
-
+    fetch('http://localhost:5000/api/grads/update-score', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ score1: score })
+    })
+    .then(async res => {
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Failed to update score');
+      }
+      return res.json();
+    })
+    .then(data => {
+      console.log('Score updated successfully:', data);
+      // You could show a success message to the user here
+    })
+    .catch(err => {
+      console.error('Failed to update score:', err.message);
+      // You could show an error message to the user here
+    });
+  }
 
   fallNextFiveDominoes() {
     const allDominoes = this.dominoes.toArray();
