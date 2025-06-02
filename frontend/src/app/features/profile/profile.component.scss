@@ -6,14 +6,47 @@
   font-family: 'Orbitron', sans-serif;
   background: linear-gradient(135deg, #1b1f3a, #2a2f5a);
   color: #fff;
-  min-height: calc(100vh - 64px); // Adjust 64px based on your navbar height
+  min-height: calc(100vh - 64px);
+  gap: 2rem;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 8px;
+  color: #ff6b6b;
+
+  mat-icon {
+    color: #ff4444;
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #00f0ff;
+  height: 200px;
+}
+
+.profile-content {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .profile-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .avatar-container {
@@ -40,9 +73,14 @@
   margin: 0;
 }
 
-.profile-details-card {
+.role {
+  font-size: 1.2rem;
+  color: #00f0ff88;
+  margin: 0.5rem 0;
+}
+
+.profile-details-card, .achievements-card {
   width: 100%;
-  max-width: 500px;
   background: rgba(20, 20, 50, 0.85);
   border: 1px solid #00f0ff55;
   border-radius: 12px;
@@ -61,6 +99,23 @@
   align-items: center;
   font-size: 1.1rem;
   color: #e0e0e0;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background: rgba(0, 240, 255, 0.1);
+  }
+
+  &.highlight {
+    background: rgba(0, 240, 255, 0.15);
+    border: 1px solid #00f0ff33;
+
+    span {
+      font-weight: bold;
+      color: #00f0ff;
+    }
+  }
 
   mat-icon {
     margin-right: 1rem;
@@ -69,6 +124,58 @@
 
   span {
     font-weight: 500;
+  }
+}
+
+.achievements-card {
+  mat-card-header {
+    margin-bottom: 1rem;
+
+    mat-card-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #00f0ff;
+      font-size: 1.5rem;
+
+      mat-icon {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+.achievement-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(0, 240, 255, 0.05);
+  border-radius: 8px;
+  transition: all 0.3s;
+
+  &:hover {
+    background: rgba(0, 240, 255, 0.1);
+    transform: translateX(5px);
+  }
+
+  mat-icon {
+    font-size: 2rem;
+    color: #00f0ff;
+  }
+
+  .achievement-details {
+    h3 {
+      margin: 0;
+      color: #00f0ff;
+      font-size: 1.2rem;
+    }
+
+    p {
+      margin: 0.5rem 0 0;
+      color: #e0e0e0;
+      font-size: 0.9rem;
+    }
   }
 }
 
@@ -89,5 +196,14 @@
 
   .detail-item {
     font-size: 1rem;
+  }
+
+  .achievement-item {
+    flex-direction: column;
+    text-align: center;
+    
+    .achievement-details {
+      text-align: center;
+    }
   }
 }

@@ -1,27 +1,70 @@
 <div class="profile-container">
-  <div class="profile-header">
-    <div class="avatar-container">
-      <video [src]="user.avatarUrl" autoplay loop muted playsinline class="profile-avatar"></video>
-    </div>
-    <h1 class="username">{{ user.username }}</h1>
+  <div *ngIf="error" class="error-message">
+    <mat-icon>error</mat-icon>
+    <span>{{ error }}</span>
   </div>
 
-  <mat-card class="profile-details-card">
-    <mat-card-content>
-      <div class="detail-item">
-        <mat-icon>games</mat-icon>
-        <span>Games Played: {{ user.gamesPlayed }}</span>
-      </div>
-      <div class="detail-item">
-        <mat-icon>leaderboard</mat-icon>
-        <span>Score: {{ user.score }}</span>
-      </div>
-      <div class="detail-item">
-        <mat-icon>military_tech</mat-icon>
-        <span>Rank: {{ calculateRank(user.score) }}</span> 
-      </div>
-    </mat-card-content>
-  </mat-card>
+  <div *ngIf="loading" class="loading-spinner">
+    Loading profile...
+  </div>
 
-  <!-- Add more sections as needed, e.g., achievements, settings -->
+  <div *ngIf="!loading && !error" class="profile-content">
+    <div class="profile-header">
+      <div class="avatar-container">
+        <video [src]="user.avatarUrl" autoplay loop muted playsinline class="profile-avatar"></video>
+      </div>
+      <h1 class="username">{{ user.name }}</h1>
+      <p class="role">{{ user.role | titlecase }}</p>
+    </div>
+
+    <mat-card class="profile-details-card">
+      <mat-card-content>
+        <div class="detail-item">
+          <mat-icon>emoji_events</mat-icon>
+          <span>Global Rank: #{{ user.rank || 'N/A' }}</span>
+        </div>
+        <div class="detail-item">
+          <mat-icon>casino</mat-icon>
+          <span>Domino Game Score: {{ user.score1 || 0 }}</span>
+        </div>
+        <div class="detail-item">
+          <mat-icon>account_tree</mat-icon>
+          <span>Decision Tree Score: {{ user.score2 || 0 }}</span>
+        </div>
+        <div class="detail-item highlight">
+          <mat-icon>leaderboard</mat-icon>
+          <span>Total Score: {{ totalScore }}</span>
+        </div>
+        <div class="detail-item">
+          <mat-icon>military_tech</mat-icon>
+          <span>Rank: {{ calculateRank(totalScore) }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="achievements-card" *ngIf="user.score1 > 0 || user.score2 > 0">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>stars</mat-icon>
+          Achievements
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="achievement-item" *ngIf="user.score1 > 0">
+          <mat-icon>casino</mat-icon>
+          <div class="achievement-details">
+            <h3>Domino Master</h3>
+            <p>Completed the Domino Challenge with {{ user.score1 }} points</p>
+          </div>
+        </div>
+        <div class="achievement-item" *ngIf="user.score2 > 0">
+          <mat-icon>account_tree</mat-icon>
+          <div class="achievement-details">
+            <h3>Decision Tree Expert</h3>
+            <p>Mastered the Decision Tree with {{ user.score2 }} points</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

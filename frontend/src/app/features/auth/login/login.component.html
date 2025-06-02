@@ -20,6 +20,14 @@
                  [(ngModel)]="loginData.password" name="loginPassword" required />
         </mat-form-field>
 
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>🎭 Role</mat-label>
+          <mat-select [(ngModel)]="loginData.role" name="loginRole" required>
+            <mat-option value="grad">🧑‍🎓 Grad</mat-option>
+            <mat-option value="pm">🧙 Program Manager</mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <button mat-flat-button color="primary" type="submit">
           🚀 Login
         </button>
@@ -54,6 +62,19 @@
           <mat-select [(ngModel)]="signupData.role" name="signupRole" required>
             <mat-option value="grad">🧑‍🎓 Grad</mat-option>
             <mat-option value="pm">🧙 Program Manager</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>🎮 Avatar</mat-label>
+          <mat-select [(ngModel)]="signupData.avatarUrl" name="avatarUrl" required>
+            <mat-option *ngFor="let avatar of avatars" [value]="avatar.url">
+              <div class="avatar-option">
+                <video *ngIf="avatar.url.endsWith('.webm')" [src]="avatar.url" autoplay loop muted playsinline class="avatar-preview"></video>
+                <img *ngIf="!avatar.url.endsWith('.webm')" [src]="avatar.url" [alt]="avatar.name" class="avatar-preview">
+                {{ avatar.name }}
+              </div>
+            </mat-option>
           </mat-select>
         </mat-form-field>
 

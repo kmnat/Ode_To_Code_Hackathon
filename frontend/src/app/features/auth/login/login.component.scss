@@ -1,108 +1,137 @@
-.card-container {
+.login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
-  background: linear-gradient(135deg, #0d0d2b, #1a1a40);
   min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #1b1f3a, #2a2f5a);
   font-family: 'Orbitron', sans-serif;
 }
 
 .login-card {
-  width: 420px;
-  background: rgba(20, 20, 50, 0.95);
-  border: 2px solid #00f0ff55;
-  box-shadow: 0 0 25px #00f0ff33;
-  border-radius: 1.5rem;
-  color: #ffffff;
-  transition: all 0.3s ease-in-out;
+  width: 100%;
+  max-width: 400px;
+  background: rgba(20, 20, 50, 0.85);
+  border: 1px solid #00f0ff55;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #00f0ff33;
+  padding: 2rem;
 
-  mat-card-header.header {
-    display: flex;
-    justify-content: center;
+  mat-card-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #00f0ff33;
     padding-bottom: 1rem;
-    border-bottom: 1px solid #00f0ff44;
 
     mat-card-title {
-      font-size: 1.6rem;
       color: #00f0ff;
+      font-size: 1.8rem;
+      margin: 0;
       text-align: center;
-      text-shadow: 0 0 5px #00f0ff, 0 0 15px #00f0ff88;
+      width: 100%;
+      text-shadow: 0 0 10px #00f0ff55;
     }
   }
+}
 
-  mat-card-content {
-    padding: 2rem 1.5rem;
-    background: transparent;
-  }
+.login-form, .signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  mat-form-field {
+    width: 100%;
 
-    mat-form-field {
-      width: 100%;
-
-      .mat-form-field-flex {
-        background-color: rgba(255, 255, 255, 0.06);
-        border-radius: 8px;
-        transition: background 0.3s;
+    ::ng-deep {
+      .mat-form-field-outline {
+        color: #00f0ff33;
       }
 
       .mat-form-field-label {
-        color: #00f0ff;
-        font-weight: 500;
+        color: #00f0ff88;
       }
 
-      input, textarea, mat-select {
-        color: #fff;
+      .mat-input-element {
+        color: #ffffff;
+      }
+
+      .mat-select-value {
+        color: #ffffff;
       }
 
       .mat-select-arrow {
         color: #00f0ff;
       }
-
-      &:hover .mat-form-field-flex {
-        background-color: rgba(0, 240, 255, 0.15);
-      }
-
-      .mat-form-field-underline {
-        background-color: #00f0ff;
-      }
     }
   }
+}
 
-  mat-card-actions {
-    padding: 1rem 1.5rem 2rem;
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 1rem;
 
-    button {
+  button {
+    flex: 1;
+
+    &[color="primary"] {
+      background-color: #00f0ff;
+      color: #1b1f3a;
       font-weight: bold;
-      letter-spacing: 0.5px;
-      border-radius: 10px;
-      transition: 0.3s ease;
 
       &:hover {
-        box-shadow: 0 0 8px #00f0ff88;
-        transform: scale(1.03);
+        background-color: #00d4e0;
       }
+    }
 
-      &.mat-flat-button {
-        background: linear-gradient(to right, #00f0ff, #00bfff);
-        color: #0d0d2b;
-      }
+    &[type="button"] {
+      color: #00f0ff;
+      border: 1px solid #00f0ff33;
 
-      &.mat-stroked-button {
-        border-color: #00f0ff;
-        color: #00f0ff;
-
-        &:hover {
-          background-color: rgba(0, 240, 255, 0.1);
-        }
+      &:hover {
+        background-color: rgba(0, 240, 255, 0.1);
       }
     }
   }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 1rem;
+  }
+
+  .login-card {
+    padding: 1rem;
+
+    mat-card-header {
+      margin-bottom: 1.5rem;
+
+      mat-card-title {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .form-actions {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+.avatar-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar-preview {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 }

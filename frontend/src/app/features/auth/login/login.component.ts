@@ -1,19 +1,30 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { RouterModule, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
+interface LoginData {
+  soeid: string;
+  password: string;
+  role: 'grad' | 'pm';
+}
+
+interface SignupData extends LoginData {
+  name: string;
+  confirmPassword: string;
+  avatarUrl?: string;
+}
 
 @Component({
-  selector: 'card-fancy-example',
+  selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
@@ -26,104 +37,39 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
+    MatOptionModule,
     HttpClientModule
-  ],
+  ]
 })
 export class LoginComponent {
-//   isSignUp = false;
+  isSignUp = false;
+  avatars = [
+    { url: 'assets/anime/samurai.webm', name: 'Samurai' },
+    { url: 'assets/anime/Scarlet_Witch.webp', name: 'Scarlet Witch' }
+  ];
 
-//   loginData = { soeid: '', password: '' };
-//   // signupData = { soeid: '', password: '', confirmPassword: '', role: 'grad' };
-//   signupData = {
-//   name: '',              // full name
-//   soeid: '',             // SOEID
-//   password: '',
-//   confirmPassword: '',
-//   role: 'grad'
-// };
-
-//   constructor(private http: HttpClient, private router: Router) {}
-
-//   handleSubmit() {
-//     if (this.isSignUp) {
-//       this.onSignupSubmit();
-//     } else {
-//       this.onLoginSubmit();
-//     }
-//   }
-
-//   toggleForm(): void {
-//     this.isSignUp = !this.isSignUp;
-//   }
-
-//   onSignupSubmit() {
-//   if (this.signupData.password !== this.signupData.confirmPassword) {
-//     alert('Passwords do not match!');
-//     return;
-//   }
-
-//   const registerUrl =
-//     this.signupData.role === 'grad'
-//       ? 'http://localhost:5000/auth/register/grad'
-//       : 'http://localhost:5000/auth/register/pm';
-
-//   const payload = {
-//     _id: this.signupData.soeid,
-//     name: this.signupData.soeid,
-//     password: this.signupData.password,
-//   };
-// //   const payload = {
-// //   _id: this.signupData.soeid,
-// //   password: this.signupData.password,
-// // };
-
-
-//   this.http.post(registerUrl, payload).subscribe({
-//     next: () => {
-//       alert('Registered successfully! Please login.');
-//       this.toggleForm();
-//     },
-//     error: (err) => {
-//       alert('Registration failed: ' + (err.error?.error || err.message));
-//     },
-//   });
-// }
-
-// onLoginSubmit() {
-//   const payload = {
-//     _id: this.loginData.soeid,
-//     password: this.loginData.password,
-//   };
-
-//   this.http.post('http://localhost:5000/auth/login', payload).subscribe({
-//     next: (res: any) => {
-//       localStorage.setItem('token', res.token);
-//       localStorage.setItem('name', res.name);
-//       localStorage.setItem('role', res.role);
-
-//       alert(`Welcome ${res.name}! Redirecting you...`);
-//       this.router.navigate(['/dashboard']);
-//     },
-//     error: (err) => {
-//       alert('Login failed: ' + (err.error?.error || err.message));
-//     },
-//   });
-// }
-
-isSignUp = false;
-
-  loginData = { soeid: '', password: '' };
-  signupData = {
-    name: '',
+  loginData: LoginData = {
     soeid: '',
     password: '',
-    confirmPassword: '',
     role: 'grad'
   };
 
-  constructor(private http: HttpClient, private router: Router) {}
+  signupData: SignupData = {
+    soeid: '',
+    name: '',
+    password: '',
+    confirmPassword: '',
+    role: 'grad',
+    avatarUrl: 'assets/anime/samurai.webm'
+  };
 
-  handleSubmit() {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  handleSubmit(event: Event) {
+    event.preventDefault();
     if (this.isSignUp) {
       this.onSignupSubmit();
     } else {
@@ -131,8 +77,31 @@ isSignUp = false;
     }
   }
 
-  toggleForm(): void {
-    this.isSignUp = !this.isSignUp;
+  onLoginSubmit() {
+    const payload = {
+      _id: this.loginData.soeid,
+      password: this.loginData.password,
+      role: this.loginData.role
+    };
+
+    this.authService.login(payload).subscribe({
+      next: (response) => {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('userName', response.name);
+        localStorage.setItem('role', response.role);
+        localStorage.setItem('avatarUrl', response.avatarUrl);
+
+        // Redirect based on role
+        if (response.role === 'pm') {
+          this.router.navigate(['/pm']);
+        } else {
+          this.router.navigate(['/home']);
+        }
+      },
+      error: (err) => {
+        alert('Login failed: ' + (err.error?.error || err.message));
+      },
+    });
   }
 
   onSignupSubmit() {
@@ -141,18 +110,15 @@ isSignUp = false;
       return;
     }
 
-    const registerUrl =
-      this.signupData.role === 'grad'
-        ? 'http://localhost:5000/auth/register/grad'
-        : 'http://localhost:5000/auth/register/pm';
-
     const payload = {
       _id: this.signupData.soeid,
-      name: this.signupData.name || this.signupData.soeid,
+      name: this.signupData.name,
       password: this.signupData.password,
+      role: this.signupData.role,
+      avatarUrl: this.signupData.avatarUrl
     };
 
-    this.http.post(registerUrl, payload).subscribe({
+    this.authService.register(payload, this.signupData.role).subscribe({
       next: () => {
         alert('Registered successfully! Please login.');
         this.toggleForm();
@@ -163,25 +129,7 @@ isSignUp = false;
     });
   }
 
-  onLoginSubmit() {
-    const payload = {
-      _id: this.loginData.soeid,
-      password: this.loginData.password,
-    };
-
-    this.http.post('http://localhost:5000/auth/login', payload).subscribe({
-      next: (res: any) => {
-        // Store JWT and user info in localStorage
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('name', res.name);
-        localStorage.setItem('role', res.role);
-
-        alert(`Welcome ${res.name}! Redirecting you...`);
-        this.router.navigate(['/dashboard']);
-      },
-      error: (err) => {
-        alert('Login failed: ' + (err.error?.error || err.message));
-      },
-    });
+  toggleForm() {
+    this.isSignUp = !this.isSignUp;
   }
 }

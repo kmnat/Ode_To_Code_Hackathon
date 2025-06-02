@@ -7,6 +7,42 @@ const Grad = require('../models/Grad');
 router.post('/', gradController.createGrad);
 router.get('/', gradController.getAllGrads);
 
+// Get leaderboard
+router.get('/leaderboard', authenticateUser, async (req, res) => {
+  try {
+    const grads = await Grad.find({}, '-password')
+      .sort({ score1: -1, score2: -1 });
+    
+    // Calculate total score and map to response format
+    const leaderboard = grads.map(grad => ({
+      _id: grad._id,
+      name: grad.name,
+      score1: grad.score1 || 0,
+      score2: grad.score2 || 0,
+      avatarUrl: grad.avatarUrl
+    }));
+
+    res.json(leaderboard);
+  } catch (err) {
+    console.error('Error fetching leaderboard:', err);
+    res.status(500).json({ message: 'Failed to fetch leaderboard', error: err.message });
+  }
+});
+
+// Get grad profile by ID
+router.get('/:id', authenticateUser, async (req, res) => {
+  try {
+    const grad = await Grad.findById(req.params.id).select('-password');
+    if (!grad) {
+      return res.status(404).json({ message: 'Grad not found' });
+    }
+    res.json(grad);
+  } catch (err) {
+    console.error('Error fetching grad profile:', err);
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
+
 router.post('/update-score', authenticateUser, async (req, res) => {
   const { score1 } = req.body;
   const userId = req.user.id; // from decoded JWT

@@ -1,0 +1,79 @@
+<div class="grad-detail-container">
+  <div *ngIf="error" class="error-message">
+    <mat-icon>error</mat-icon>
+    <span>{{ error }}</span>
+  </div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    Loading grad details...
+  </div>
+
+  <div *ngIf="!loading && !error && gradDetail" class="grad-detail-content">
+    <mat-card class="grad-detail-card">
+      <mat-card-header>
+        <mat-card-title>{{ gradDetail.name }}'s Progress Details</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <!-- Overall Progress -->
+        <div class="progress-section">
+          <h2>Overall Progress</h2>
+          <div class="status-indicator">
+            <mat-icon [style.color]="getStatusColor(gradDetail.overallProgress)">
+              {{ gradDetail.overallProgress === 'Completed' ? 'check_circle' : 'pending' }}
+            </mat-icon>
+            <span [style.color]="getStatusColor(gradDetail.overallProgress)">
+              {{ gradDetail.overallProgress }}
+            </span>
+          </div>
+          <div class="score-display">
+            <span class="score-label">Total Score:</span>
+            <span class="score-value">{{ gradDetail.totalScore }}</span>
+          </div>
+        </div>
+
+        <!-- Domino Game Progress -->
+        <div class="game-section">
+          <h3>
+            <mat-icon>casino</mat-icon>
+            Domino Game
+          </h3>
+          <div class="game-progress">
+            <div class="status-row">
+              <span [style.color]="getStatusColor(gradDetail.domino.status)">
+                {{ gradDetail.domino.status }}
+              </span>
+              <span class="score">Score: {{ gradDetail.domino.score }}</span>
+            </div>
+            <mat-progress-bar
+              mode="determinate"
+              [value]="getProgressValue(gradDetail.domino.score)"
+              [color]="gradDetail.domino.status === 'Completed' ? 'primary' : 'accent'"
+            ></mat-progress-bar>
+          </div>
+        </div>
+
+        <!-- Decision Tree Game Progress -->
+        <div class="game-section">
+          <h3>
+            <mat-icon>account_tree</mat-icon>
+            Decision Tree Game
+          </h3>
+          <div class="game-progress">
+            <div class="status-row">
+              <span [style.color]="getStatusColor(gradDetail.decisionTree.status)">
+                {{ gradDetail.decisionTree.status }}
+              </span>
+              <span class="score">Score: {{ gradDetail.decisionTree.score }}</span>
+            </div>
+            <mat-progress-bar
+              mode="determinate"
+              [value]="getProgressValue(gradDetail.decisionTree.score)"
+              [color]="gradDetail.decisionTree.status === 'Completed' ? 'primary' : 'accent'"
+            ></mat-progress-bar>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div> 
