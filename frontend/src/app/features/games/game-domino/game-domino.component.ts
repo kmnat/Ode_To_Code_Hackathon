@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, AfterViewInit, QueryList, ViewChildren, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
-=======
-import { CommonModule } from '@angular/common';
-import { Component, AfterViewInit, QueryList, ViewChildren, ElementRef } from '@angular/core';
->>>>>>> e45c89e5b249478d2b123b33a0cdaadf0faf1d01
 import { FormsModule } from '@angular/forms';
 import { gsap } from 'gsap';
 import { Draggable } from 'gsap/Draggable';
@@ -243,20 +238,14 @@ export class GameDominoComponent implements AfterViewInit {
       this.fallNextFiveDominoes();
       this.current++;
       this.showModal = false;
-<<<<<<< HEAD
       if (this.current >= this.puzzles.length) {
         this.showWinPopup = true;
+        // Send final score to backend
+        this.sendScoreToBackend(this.totalScore);
         setTimeout(() => {
           this.animatePopupDominoes();
         }, 100);
       }
-=======
-
-       const score1 = this.current * 10; // 10 points per puzzle
-
-    // Send score to backend
-    this.sendScoreToBackend(score1);
->>>>>>> e45c89e5b249478d2b123b33a0cdaadf0faf1d01
     } else {
       this.submittedIncorrectlyThisPuzzle = true;
       console.log('Puzzle incorrect. Flagging for reduced points on eventual success.');
@@ -274,41 +263,8 @@ export class GameDominoComponent implements AfterViewInit {
     }
   }
 
-<<<<<<< HEAD
   closeWinPopup() {
     this.showWinPopup = false;
-=======
-  sendScoreToBackend(score: number) {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found');
-      return;
-    }
-
-    fetch('http://localhost:5000/api/grads/update-score', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ score1: score })
-    })
-    .then(async res => {
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || 'Failed to update score');
-      }
-      return res.json();
-    })
-    .then(data => {
-      console.log('Score updated successfully:', data);
-      // You could show a success message to the user here
-    })
-    .catch(err => {
-      console.error('Failed to update score:', err.message);
-      // You could show an error message to the user here
-    });
->>>>>>> e45c89e5b249478d2b123b33a0cdaadf0faf1d01
   }
 
   fallNextFiveDominoes() {
@@ -346,5 +302,35 @@ export class GameDominoComponent implements AfterViewInit {
         });
       });
     }
+  }
+
+  sendScoreToBackend(score: number) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    fetch('http://localhost:5000/api/grads/update-score', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ score1: score }) // Using score1 for domino game
+    })
+    .then(async res => {
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Failed to update score');
+      }
+      return res.json();
+    })
+    .then(data => {
+      console.log('Domino game score (score1) updated successfully:', data);
+    })
+    .catch(err => {
+      console.error('Failed to update domino game score:', err.message);
+    });
   }
 }
