@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 // Build Mongo URI securely
-const mongoURI = ``;
+const mongoURI = `mongodb+srv://ktanvarada:Do5N8vpxn19vBdv2@cluster-hackathonciti.uxg1oef.mongodb.net/rpg-game?retryWrites=true&w=majority&appName=Cluster-hackathonCiti`;
 
 // MongoDB connection
 mongoose.connect(mongoURI, {
@@ -23,11 +23,13 @@ const gradRoutes = require('./routes/gradRoutes');
 const scoreRoutes = require('./routes/scoreRoutes');
 const generalRoutes = require('./routes/generalRoutes');
 const authRoutes = require('./routes/authRoutes');
+const pmRoutes = require('./routes/pmRoutes');
 
 app.use('/api/grads', gradRoutes);
 app.use('/api/scores', scoreRoutes);
-app.use('/api', generalRoutes);
+app.use('/api/general', generalRoutes);
 app.use('/auth', authRoutes);
+app.use('/api/pm', pmRoutes);
 
 app.get('/', (req, res) => {
   res.send('Backend is working!');
